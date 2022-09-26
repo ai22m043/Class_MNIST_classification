@@ -82,19 +82,19 @@ def main():
     print("\nImage normalized to fit model:\n", a.reshape(8, 8))
 
     # Predict Number
-    prediction = model.predict(a)
+    # prediction = model.predict(a)
     prediction_prob = model.predict_proba(a)
-    prediction_prob_top = 0.0
 
+    result = {}
     print("\nProbabilities of classification:")
-    for x in range(10):
+    for x in model.classes_:
         tmp = prediction_prob[0][x] * 100
         print("Number", x, ":", tmp, "%")
+        result[x] = tmp
 
-        if tmp > prediction_prob_top:
-            prediction_prob_top = tmp
+    prediction = dict(sorted(result.items(), key=lambda item: item[1], reverse=True))
 
-    print("\nThe image is with [" + str(prediction_prob_top), "%] probability number", prediction)
+    print("\nThe image is with [" + str(list(prediction.items())[0][1]), "%] probability number", [list(prediction.items())[0][0]])
 
 
 if __name__ == '__main__':
