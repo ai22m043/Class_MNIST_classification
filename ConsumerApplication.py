@@ -4,6 +4,7 @@ import cv2
 from tkinter import filedialog
 import numpy as np
 from joblib import dump, load
+from matplotlib import pyplot as plt
 
 
 def loadModel():
@@ -36,8 +37,8 @@ def loadImage():
     while True:
         directory = os.getcwd()
         filetypes = (
-            ("*.jpg", "*.jpg"),
             ("*.png", "*.png"),
+            ("*.jpg", "*.jpg"),
             ("All files", "*.*")
         )
 
@@ -69,6 +70,11 @@ def main():
     # Format image to fit (8,8) arrays = 64 dimensions
     image_resized = cv2.resize(image, (8, 8))
     print("\nImage resized to shape", image_resized.shape, ":\n", image_resized)
+
+    # Visualize the resized image
+    #plt.matshow(image_resized)
+    #plt.matshow(image)
+    #plt.show()
 
     # Invert Image to white number with black background
     image_resized = cv2.bitwise_not(image_resized)

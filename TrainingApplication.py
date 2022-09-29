@@ -1,10 +1,8 @@
 import sys
 from tkinter import filedialog
-
-import cv2
+from matplotlib import pyplot as plt
 from sklearn import datasets, svm
 from sklearn.neighbors import KNeighborsClassifier
-from sklearn.model_selection import train_test_split
 from joblib import dump, load
 import os
 
@@ -40,21 +38,26 @@ def main():
     # Create features and targets
     x = digits.data
     y = digits.target
-    #print(digits)
+    # print(digits)
 
     # Classifier implementing the k-nearest neighbors vote and support vector machine
-    neighbors = KNeighborsClassifier(n_neighbors=20)
-    clf = svm.SVC(gamma=0.001, probability=True)
+    clf_neighbors = KNeighborsClassifier(n_neighbors=20)
+    clf_svm = svm.SVC(gamma=0.001, probability=True)
 
     # Fit the knn and svc classifier from the training dataset
-    neighbors.fit(x, y)
-    clf.fit(x, y)
+    clf_neighbors.fit(x, y)
+    clf_svm.fit(x, y)
 
+    # Save trained model
     print("Model successfully trained")
     print("Save your trained Model")
-    #saveModel(neighbors)
-    saveModel(clf)
+    # saveModel(clf_neighbors)
+    saveModel(clf_svm)
 
+    # Visualize a digit
+    # plt.imshow(digits.images[0]);
+    # plt.gray()
+    # plt.show()
 
 if __name__ == '__main__':
     main()
